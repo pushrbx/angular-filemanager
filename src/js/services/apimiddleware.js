@@ -104,6 +104,15 @@
             );
         };
 
+        ApiMiddleware.prototype.getDownloadLink = function(item) {
+            if (item.isFolder()) {
+                return;
+            }
+
+            var itemPath = this.getFilePath(item);
+            return this.apiHandler.getLinkOfFile(fileManagerConfig.getLinkOfFile, itemPath);
+        }
+
         ApiMiddleware.prototype.compress = function(files, compressedFilename, path) {
             var items = this.getFileList(files);
             return this.apiHandler.compress(fileManagerConfig.compressUrl, items, compressedFilename, this.getPath(path));

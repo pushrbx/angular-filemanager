@@ -161,6 +161,20 @@
             return returnElement ? element : true;
         };
 
+        $scope.getDownloadLink = function() {
+            var item = $scope.singleSelection();
+            if ($scope.selectionHas('dir')) {
+                return;
+            }
+
+            if (item) {
+                $scope.apiMiddleware.getDownloadLink(item).then(function(data) {
+                    item.tempModel.content = data.link;
+                });
+                $scope.modal('file-short-dl-url');
+            }
+        }
+
         $scope.modalWithPathSelector = function(id) {
             $rootScope.selectedModalPath = $scope.fileNavigator.currentPath;
             return $scope.modal(id);

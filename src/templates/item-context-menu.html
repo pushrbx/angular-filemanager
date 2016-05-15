@@ -19,6 +19,12 @@
             </a>
         </li>
 
+        <li ng-show="config.allowedActions.getDownloadLink && !selectionHas('dir') && singleSelection()">
+            <a href="" tabindex="-1" ng-click="getDownloadLink()">
+                <i class="glyphicon glyphicon-cloud-download"></i> Download Link
+            </a>
+        </li>
+
         <li ng-show="config.allowedActions.preview && singleSelection().isImage() && singleSelection()">
             <a href="" tabindex="-1" ng-click="openImagePreview()">
                 <i class="glyphicon glyphicon-picture"></i> {{'view_item' | translate}}

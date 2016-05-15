@@ -53,6 +53,27 @@
             return deferred.promise;
         };
 
+        ApiHandler.prototype.getLinkOfFile = function(apiUrl, itemPath) {
+            var self = this;
+            var deferred = $q.defer();
+            var data = {
+                action: 'getLinkOfFile',
+                item: itemPath
+            };
+
+            self.inprocess = true;
+
+            $http.post(apiUrl, data).success(function(data) {
+                self.deferredHandler(data, deferred);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, 'Couldn\'t retrieve the download link for this file. Unknown error.');
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+
+            return deferred.promise;
+        }
+
         ApiHandler.prototype.copy = function(apiUrl, items, path) {
             var self = this;
             var deferred = $q.defer();
